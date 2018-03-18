@@ -46,8 +46,8 @@ trait BookingScopes
                     ->whereNull('cancelled_at')
                     ->whereNotNull('starts_at')
                     ->whereNotNull('ends_at')
-                    ->where('starts_at', '<', now())
-                    ->where('ends_at', '>', now());
+                    ->where('starts_at', '<=', now())
+                    ->where('ends_at', '>=', now());
     }
 
     /**
@@ -104,8 +104,8 @@ trait BookingScopes
         return $this->bookings()
                     ->whereNull('cancelled_at')
                     ->whereNotNull('starts_at')
-                    ->where('starts_at', '>', new Carbon($startsAt))
-                    ->where('starts_at', '<', new Carbon($endsAt));
+                    ->where('starts_at', '>=', new Carbon($startsAt))
+                    ->where('starts_at', '<=', new Carbon($endsAt));
     }
 
     /**
@@ -151,8 +151,8 @@ trait BookingScopes
         return $this->bookings()
                     ->whereNull('cancelled_at')
                     ->whereNotNull('ends_at')
-                    ->where('ends_at', '>', new Carbon($startsAt))
-                    ->where('ends_at', '<', new Carbon($endsAt));
+                    ->where('ends_at', '>=', new Carbon($startsAt))
+                    ->where('ends_at', '<=', new Carbon($endsAt));
     }
 
     /**
@@ -195,7 +195,7 @@ trait BookingScopes
     {
         return $this->bookings()
                     ->whereNotNull('cancelled_at')
-                    ->where('cancelled_at', '>', new Carbon($startsAt))
-                    ->where('cancelled_at', '<', new Carbon($endsAt));
+                    ->where('cancelled_at', '>=', new Carbon($startsAt))
+                    ->where('cancelled_at', '<=', new Carbon($endsAt));
     }
 }
