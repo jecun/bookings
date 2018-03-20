@@ -55,13 +55,13 @@ trait BookingScopes
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function bookingsIntersect(): MorphMany
+    public function bookingsIntersect(string $startsAt, string $endsAt): MorphMany
     {
         return $this->bookings()
                     ->whereNull('cancelled_at')
                     ->whereNotNull('starts_at')
-                    ->where('starts_at', '<=', new Carbon($fecha_inicio))
-                    ->where('ends_at', '>=', new Carbon($fecha_fin));
+                    ->where('starts_at', '<=', new Carbon($startsAt))
+                    ->where('ends_at', '>=', new Carbon($endsAt));
     }
 
     /**
