@@ -49,6 +49,20 @@ trait BookingScopes
                     ->where('starts_at', '<=', now())
                     ->where('ends_at', '>=', now());
     }
+    
+    /**
+     * Get current bookings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function bookingsIntersect(): MorphMany
+    {
+        return $this->bookings()
+                    ->whereNull('cancelled_at')
+                    ->whereNotNull('starts_at')
+                    ->where('starts_at', '<=', new Carbon($fecha_inicio))
+                    ->where('ends_at', '>=', new Carbon($fecha_fin));
+    }
 
     /**
      * Get cancelled bookings.
